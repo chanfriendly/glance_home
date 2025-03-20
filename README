@@ -1,0 +1,201 @@
+
+```
+- name: Home
+    columns:
+      - size: small
+        widgets:
+          - type: calendar
+            first-day-of-week: monday
+
+          - type: search
+            search-engine: duckduckgo
+            bangs:
+                - title: YouTube
+                  shortcut: "!yt"
+                  url: https://www.youtube.com/results?search_query={QUERY}
+                  new-tab: true
+      
+          - type: rss
+            limit: 10
+            collapse-after: 3
+            cache: 12h
+            feeds:
+              - url: https://selfh.st/rss/
+                title: selfh.st
+                limit: 4
+              - url: https://ciechanow.ski/atom.xml
+              - url: https://www.joshwcomeau.com/rss.xml
+                title: Josh Comeau
+              - url: https://samwho.dev/rss.xml
+              - url: https://ishadeed.com/feed.xml
+                title: Ahmad Shadeed
+
+
+          - type: custom-api
+            title: Todoist Tasks
+            icon: si:todoist
+            cache: 5m
+            url: https://api.todoist.com/rest/v2/tasks
+
+            headers:
+                Authorization: Bearer [YOUR API KEY]
+                Accept: application/json
+            template: |
+                <ul class="list list-gap-10 collapsible-container" data-collapse-after="5">
+                {{ range .JSON.Array "" }}
+                  <li>
+                    <span class="size-h4 color-highlight block">{{ .String "content" }}</span>
+                    <ul class="list-horizontal-text">
+                      {{ if .Exists "due" }}
+                        <li>📅 Due: {{ .String "due.date" }}</li>
+                      {{ else }}
+                        <li>📅 Due: No Due Date</li>
+                      {{ end }}
+                      <li>📌 Priority: {{ .Int "priority" }}</li>
+                    </ul>
+                  </li>
+                {{ end }}
+                </ul>
+
+
+ 
+
+ 
+
+      - size: full
+        widgets:
+          - type: group
+            widgets:
+              - type: rss
+                title: "New York Times"
+                style: horizontal-cards
+                feeds:
+                -  url: "https://rss.nytimes.com/services/xml/rss/nyt/US.xml"
+                   title: US News
+                -  url: "https://rss.nytimes.com/services/xml/rss/nyt/Climate.xml"
+                   title: Environment
+                -  url: "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
+                   title: Technology                
+                   
+          - type: group
+            widgets:
+              - type: reddit
+                subreddit: news
+                show-thumbnails: true
+              - type: reddit
+                subreddit: selfhosted
+                show-thumbnails: true
+              - type: reddit
+                subreddit: singularity
+                show-thumbnails: true                
+              - type: reddit
+                subreddit: technology
+                show-thumbnails: true                
+                
+                
+          - type: videos
+            channels:
+                - UCP7jMXSY2xbc3KCAE0MHQ-A
+                - UCvQECJukTDE2i6aCoMnS-Vg
+                - UCKWaEZ-_VweaEx1j62do_vQ 
+                - UC3XTzVzaHQEd30rQbuvCtTQ
+                - UC9x0AN7BWHpCDHSm9NiJFJQ
+                - UCX6b17PVsYBQ0ip5gyeme-Q
+                - UCZYTClx2T1of7BRZ86-8fow
+                - UCHkYOD-3fZbuGhwsADBd9ZQ
+                - UCoOae5nYA7VqaXzerajD0lg
+                
+          - type: monitor
+            cache: 1m
+            title: Services
+            sites:
+                - title: Jellyfin
+                  url: [YOUR URL]
+                  icon: si:jellyfin
+                  allow-insecure: true
+                - title: Immich
+                  url: [YOUR URL]
+                  icon: si:immich
+                  allow-insecure: true
+                - title: AdGuard Home
+                  url: [YOUR URL]
+                  icon: si:adguard
+                - title: Mealie
+                  url: [YOUR URL]
+                  icon: si:mealie
+                - title: Home Assistant
+                  url: [YOUR URL]
+                  icon: si:homeassistant
+                - title: Nginx Proxy Manager
+                  url: [YOUR URL]
+                  icon: si:nginxproxymanager   
+                - title: n8n
+                  url: [YOUR URL]
+                  icon: si:n8n         
+                  allow-insecure: true
+                - title: Jellyseer
+                  url:[YOUR URL]
+                  icon: si:searxng         
+                  allow-insecure: true                  
+                - title: Open WebUI
+                  url: [YOUR URL]
+                  icon: si:ollama         
+                  allow-insecure: true  
+ 
+                  
+      - size: small
+        widgets:
+
+          - type: bookmarks
+            groups:
+                - links:
+                    - title: Wikipedia
+                      url: https://en.wikipedia.org/
+                    - title: Hoarder
+                      url: http://192.168.1.124:3030/
+                - title: Entertainment
+                  color: 10 70 50
+                  links:
+                    - title: YouTube
+                      url: https://www.youtube.com/
+                    - title: Reddit
+                      url: https://www.reddit.com/
+                - title: Personal
+                  color: 200 50 50
+                  links:
+                    - title: Blog
+                      url: [YOUR URL]
+                      icon: si:medium
+                    - title: Github
+                      url: https://github.com/
+                      icon: si:github
+                    - title: Linkedin
+                      url: https://www.linkedin.com/in/
+                      icon: si:lerna
+                    - title: Personal Site
+                      url: [YOUR URL]
+                      icon: si:readme
+                    - title: Resumes
+                      url: [YOUR URL]
+                      icon: si:reactiveresume
+                    - title: Hugging Face
+                      url: https://huggingface.co/     
+                      icon: si:huggingface
+                      
+          - type: weather
+            location: [YOUR LOCATION]
+            units: imperial
+            hour-format: 12h
+            
+          - type: dns-stats
+            service: adguard
+            url: [YOUR URL]
+            username: [YOUR UN]
+            password: [YOUR PW]
+
+          - type: server-stats
+            servers:
+                - type: local
+                  name: Services
+
+```
